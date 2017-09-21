@@ -1,0 +1,22 @@
+{
+  "name": "letcode.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axetroy/letcode.js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/axetroy/letcode.js/issues"
+  },
+  "homepage": "https://github.com/axetroy/letcode.js#readme",
+  "devDependencies": {
+    "ava": "^0.22.0"
+  }
+}
