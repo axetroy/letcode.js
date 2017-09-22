@@ -1,4 +1,8 @@
-module.exports = function checkValidString(s) {
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var checkValidString = function(s) {
   if (s === '') {
     return true;
   }
@@ -23,3 +27,5 @@ module.exports = function checkValidString(s) {
 
   return true;
 };
+
+module.exports = checkValidString;

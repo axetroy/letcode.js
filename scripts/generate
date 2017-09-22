@@ -11,7 +11,13 @@ function firstUpperCase(str) {
   });
 }
 
-const problem = 'replace-words'
+const name = process.argv[2];
+
+if (!name) {
+  throw new Error(`Error: generate <name>`);
+}
+
+const problem = name
   .replace(/\s+/g, ' ')
   .split(' ')
   .map(word => {
@@ -30,7 +36,7 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
     headless: false
   });
   const page = await browser.newPage();
-  await page.goto(`https://leetcode.com/problems/${problem}/description/`, {
+  await page.goto(`https://leetcode.com/problems/${name}/description/`, {
     networkIdleTimeout: 5000,
     waitUntil: 'networkidle',
     timeout: 3000000
@@ -62,41 +68,46 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
       }
     };
 
-    const $title = $('.question-title h3');
-    const $description = $('.question-description');
-    const $select = $('.editor-base .control-btn-bar select.form-control');
+    try {
+      const $title = $('.question-title h3');
+      const $description = $('.question-description');
+      const $select = $('.editor-base .control-btn-bar select.form-control');
 
-    const $javascript = $('option[value=javascript]');
-    let JavascriptCode = '';
+      const $javascript = $('option[value=javascript]');
+      let JavascriptCode = '';
 
-    if ($javascript.length) {
-      $javascript[0].selected = true;
-      $select.value = $javascript.val();
+      if ($javascript.length) {
+        $javascript[0].selected = true;
+        $select.value = $javascript.val();
 
-      const originCode = Array.from($('.CodeMirror-line '))
-        .map(ele => ele.innerText)
-        .join('\n');
-
-      fireEvent($select[0], 'change');
-
-      while (
-        Array.from($('.CodeMirror-line '))
+        const originCode = Array.from($('.CodeMirror-line '))
           .map(ele => ele.innerText)
-          .join('\n') === originCode
-      ) {
-        await sleep(100);
+          .join('\n');
+
+        fireEvent($select[0], 'change');
+
+        while (
+          Array.from($('.CodeMirror-line '))
+            .map(ele => ele.innerText)
+            .join('\n') === originCode
+        ) {
+          await sleep(100);
+        }
+
+        JavascriptCode = Array.from($('.CodeMirror-line '))
+          .map(ele => ele.innerText)
+          .join('\n');
       }
 
-      JavascriptCode = Array.from($('.CodeMirror-line '))
-        .map(ele => ele.innerText)
-        .join('\n');
+      return {
+        title: $title ? $title.text().trim() : '',
+        description: $description.html().trim(),
+        code: JavascriptCode
+      };
+    } catch (err) {
+      console.error(err);
+      return {};
     }
-
-    return {
-      title: $title ? $title.text().trim() : '',
-      description: $description.html().trim(),
-      code: JavascriptCode
-    };
   });
 
   await fs.ensureFile(README_PATH);
