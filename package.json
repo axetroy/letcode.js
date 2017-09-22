@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "ava"
+    "test": "ava",
+    "contributors": "all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/axetroy/letcode.js#readme",
   "devDependencies": {
+    "all-contributors-cli": "^4.4.0",
     "ava": "^0.22.0"
   }
 }
