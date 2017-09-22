@@ -1,4 +1,4 @@
-# Letcode solution with Javascript
+# Letcode solutions with Javascript
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/letcode.js.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/axetroy/letcode.js.svg?branch=master)](https://travis-ci.org/axetroy/letcode.js)
