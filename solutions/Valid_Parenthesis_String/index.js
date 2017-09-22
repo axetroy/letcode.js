@@ -12,7 +12,6 @@ module.exports = function checkValidString(s) {
   const middle = parseInt(isOdd ? arr1.length / 2 : arr1.length / 2 + 1);
 
   for (let i = 0; i < middle; i++) {
-    console.log(1, arr1[i], 2, arr2[i]);
     if (!isOdd && i === middle - 1) {
       return arr1[i] === '*';
     } else {
