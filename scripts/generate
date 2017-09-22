@@ -34,6 +34,7 @@ const problem = name
   .join(' ')
   .replace(/\s/, '_');
 
+const URL = `https://leetcode.com/problems/${name}/description/`;
 const DIR_PATH = path.join(process.cwd(), 'solutions', problem);
 const README_PATH = path.join(DIR_PATH, 'README.md');
 const JS_FILE_PATH = path.join(DIR_PATH, 'index.js');
@@ -44,7 +45,7 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
     headless: false
   });
   const page = await browser.newPage();
-  await page.goto(`https://leetcode.com/problems/${name}/description/`, {
+  await page.goto(URL, {
     networkIdleTimeout: 5000,
     waitUntil: 'networkidle',
     timeout: 3000000
@@ -125,8 +126,8 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
   // write markdown
   await fs.writeFile(
     README_PATH,
-    `### ${dimensions.title}
-    
+    `### [${dimensions.title}](${URL})
+
 ${html2markdown(dimensions.description)}
   `
   );
