@@ -1,5 +1,13 @@
 #!/usr/bin/env node
 
+/**
+ * Usage:
+ * generate <name>
+ *
+ *   argument:
+ *      name: leetcode problem name, example: https://leetcode.com/problems/<name>/description/
+ */
+
 const path = require('path');
 const fs = require('fs-extra');
 const puppeteer = require('puppeteer');
@@ -126,8 +134,9 @@ ${html2markdown(dimensions.description)}
   // write js
   await fs.writeFile(
     JS_FILE_PATH,
-    dimensions.code ||
-      (await fs.readFile(path.join(__dirname, 'template', 'solution.js')))
+    dimensions.code
+      ? dimensions.code + `\n\nmodule.export = null;`
+      : await fs.readFile(path.join(__dirname, 'template', 'solution.js'))
   );
 
   // write test file
