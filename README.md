@@ -7,6 +7,29 @@
 ![Size](https://github-size-badge.herokuapp.com/axetroy/letcode.js.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
+## WorkFlow
+
+1. Go to Letcode a find challenge, record the name
+2. Generate the Code buy run: ./scripts/generate <name>
+3. Let's code! :facepunch:
+
+Example: https://leetcode.com/problems/**replace-words**/description/
+
+The name is "**replace-words**"
+
+```
+$ ./scripts/generate replace-words
+# wait for generate file in solutions
+
+# print the dir
+ls ./solutions/Replace-Words
+
+total 12K
+-rw-rw-r-- 1 axetroy axetroy 137 9月  22 18:35 index.js
+-rw-rw-r-- 1 axetroy axetroy  94 9月  22 18:35 index.test.js
+-rw-rw-r-- 1 axetroy axetroy 948 9月  22 18:35 README.md
+```
+
 ## Test
 
 ```bash
