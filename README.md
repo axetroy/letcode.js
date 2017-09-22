@@ -13,7 +13,7 @@
 2. Generate the Code buy run: ./scripts/generate <name>
 3. Let's code! :facepunch:
 
-Example: https://leetcode.com/problems/**replace-words**/description/
+Example: https://leetcode.com/problems/replace-words/description/
 
 The name is "**replace-words**"
 
