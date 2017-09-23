@@ -10,7 +10,7 @@
 ## WorkFlow
 
 1. Go to Letcode a find challenge, record the name
-2. Generate the Code buy run: ./scripts/generate <name>
+2. Generate the Code buy run: ./scripts/generate {{name}}
 3. Let's code! :facepunch:
 
 Example: https://leetcode.com/problems/replace-words/description/
