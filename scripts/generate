@@ -42,7 +42,7 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: false
+    headless: true
   });
   const page = await browser.newPage();
   await page.goto(URL, {
