@@ -2,6 +2,7 @@
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/axetroy/letcode.js.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/axetroy/letcode.js.svg?branch=master)](https://travis-ci.org/axetroy/letcode.js)
+[![Coverage Status](https://coveralls.io/repos/github/axetroy/letcode.js/badge.svg?branch=master)](https://coveralls.io/github/axetroy/letcode.js?branch=master)
 [![Prettier](https://img.shields.io/badge/Code%20Style-Prettier-green.svg)](https://github.com/prettier/prettier)
 ![Node](https://img.shields.io/badge/node-%3E=6.0-blue.svg?style=flat-square)
 ![Size](https://github-size-badge.herokuapp.com/axetroy/letcode.js.svg)
