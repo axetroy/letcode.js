@@ -17,4 +17,4 @@ script:
   - yarn run test
 
 after_script:
-  - cat coverage/lcov.info | ./node_modules/.bin/coveralls
+  - nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls

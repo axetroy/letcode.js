@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "nyc ava && nyc report --reporter=text-lcov",
+    "test": "nyc ava",
     "contributors": "all-contributors generate"
   },
   "repository": {
