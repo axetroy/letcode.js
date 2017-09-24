@@ -136,7 +136,7 @@ ${html2markdown(dimensions.description)}
   await fs.writeFile(
     JS_FILE_PATH,
     dimensions.code
-      ? dimensions.code + `\n\nmodule.export = null;`
+      ? dimensions.code + `\n\nmodule.exports = null;`
       : await fs.readFile(path.join(__dirname, 'template', 'solution.js'))
   );
 
