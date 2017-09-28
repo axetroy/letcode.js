@@ -20,7 +20,7 @@
   "devDependencies": {
     "all-contributors-cli": "^4.4.0",
     "ava": "^0.22.0",
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "fs-extra": "^4.0.2",
     "html2markdown": "^1.1.0",
     "istanbul": "^0.4.5",
