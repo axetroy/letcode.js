@@ -39,29 +39,38 @@ const DIR_PATH = path.join(process.cwd(), 'solutions', problem);
 const README_PATH = path.join(DIR_PATH, 'README.md');
 const JS_FILE_PATH = path.join(DIR_PATH, 'index.js');
 const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
+const META_FILE_PATH = path.join(DIR_PATH, 'meta.json');
+
+function sleep(ms) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve();
+    }, ms);
+  });
+}
 
 (async () => {
   const browser = await puppeteer.launch({
-    headless: true
+    headless: false
   });
+
   const page = await browser.newPage();
+
+  await page.setViewport({
+    width: 1366,
+    height: 768
+  });
+
   await page.goto(URL, {
     networkIdleTimeout: 5000,
     waitUntil: 'networkidle',
     timeout: 3000000
   });
 
+  await page.exposeFunction('sleep', sleep);
+
   // Get the "viewport" of the page, as reported by the page.
   const dimensions = await page.evaluate(async () => {
-    // function
-    async function sleep(ms) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve();
-        }, ms);
-      });
-    }
-
     const fireEvent = function(element, event) {
       if (document.createEventObject) {
         // IE浏览器支持fireEvent方法
@@ -81,6 +90,12 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
       const $title = $('.question-title h3');
       const $description = $('.question-description');
       const $select = $('.editor-base .control-btn-bar select.form-control');
+      const $contributor = $(
+        '#desktop-side-bar > div > ul > li:nth-child(5) > span.pull-right'
+      );
+      const $difficulty = $(
+        '#desktop-side-bar > div > ul > li:nth-child(2) > span.pull-right.difficulty-label.round.label'
+      );
 
       const $javascript = $('option[value=javascript]');
       let JavascriptCode = '';
@@ -105,13 +120,16 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
 
         JavascriptCode = Array.from($('.CodeMirror-line '))
           .map(ele => ele.innerText)
-          .join('\n');
+          .join('\n')
+          .trim();
       }
 
       return {
-        title: $title ? $title.text().trim() : '',
-        description: $description.html().trim(),
-        code: JavascriptCode
+        title: ($title.text() || '').trim(),
+        description: ($description.html() || '').trim(),
+        code: JavascriptCode,
+        contributor: ($contributor.text() || '').trim(),
+        difficulty: ($difficulty.text() || '').trim()
       };
     } catch (err) {
       console.error(err);
@@ -122,6 +140,7 @@ const JS_TEST_FILE_PATH = path.join(DIR_PATH, 'index.test.js');
   await fs.ensureFile(README_PATH);
   await fs.ensureFile(JS_FILE_PATH);
   await fs.ensureFile(JS_TEST_FILE_PATH);
+  await fs.ensureFile(META_FILE_PATH);
 
   // write markdown
   await fs.writeFile(
@@ -144,6 +163,21 @@ ${html2markdown(dimensions.description)}
   await fs.writeFile(
     JS_TEST_FILE_PATH,
     await fs.readFile(path.join(__dirname, 'template', 'ava-test.js'))
+  );
+
+  // write meta file
+  await fs.writeFile(
+    META_FILE_PATH,
+    JSON.stringify(
+      {
+        title: dimensions.title,
+        url: URL,
+        contributor: dimensions.contributor,
+        difficulty: dimensions.difficulty
+      },
+      null,
+      2
+    )
   );
 
   await browser.close();
