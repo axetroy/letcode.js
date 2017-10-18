@@ -7,6 +7,12 @@
  *   argument:
  *      name: leetcode problem name, example: https://leetcode.com/problems/<name>/description/
  */
+process.on('uncaughtException', function(err) {
+  console.error('Error caught in uncaughtException event:', err);
+});
+process.on('unhandledRejection', (reason, p) => {
+  console.error('Unhandled Rejection at:', p, 'reason:', reason);
+});
 
 const path = require('path');
 const fs = require('fs-extra');
@@ -57,17 +63,21 @@ function sleep(ms) {
   const page = await browser.newPage();
 
   await page.setViewport({
-    width: 1366,
-    height: 768
+    width: 1920,
+    height: 1080
   });
+
+  console.info(`Navigate to ${URL} ...`);
 
   await page.goto(URL, {
     networkIdleTimeout: 5000,
     waitUntil: 'networkidle',
-    timeout: 3000000
+    timeout: 1000 * 60
   });
 
   await page.exposeFunction('sleep', sleep);
+
+  console.info(`Exec script...`);
 
   // Get the "viewport" of the page, as reported by the page.
   const dimensions = await page.evaluate(async () => {
@@ -137,6 +147,8 @@ function sleep(ms) {
     }
   });
 
+  console.info(`Generate File...`);
+
   await fs.ensureFile(README_PATH);
   await fs.ensureFile(JS_FILE_PATH);
   await fs.ensureFile(JS_TEST_FILE_PATH);
@@ -179,6 +191,8 @@ ${html2markdown(dimensions.description)}
       2
     )
   );
+
+  console.info(`Generate File done and close browser.`);
 
   await browser.close();
 })();
