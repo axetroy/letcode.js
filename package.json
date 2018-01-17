@@ -21,7 +21,7 @@
     "all-contributors-cli": "^4.4.0",
     "ava": "^0.24.0",
     "coveralls": "^3.0.0",
-    "fs-extra": "^4.0.2",
+    "fs-extra": "^5.0.0",
     "html2markdown": "^1.1.0",
     "istanbul": "^0.4.5",
     "nyc": "^11.2.1",
